@@ -1,0 +1,14 @@
+%sql
+-- 1. CREACIÓN DEL CATÁLOGO PRINCIPAL
+CREATE CATALOG IF NOT EXISTS retail_catalog;
+USE CATALOG retail_catalog;
+
+-- 2. CREACIÓN DE LOS ESQUEMAS (CAPAS MEDALLION)
+CREATE SCHEMA IF NOT EXISTS bronze;
+CREATE SCHEMA IF NOT EXISTS silver;
+CREATE SCHEMA IF NOT EXISTS gold;
+
+-- 3. CREACIÓN DEL EXTERNAL LOCATION
+CREATE EXTERNAL LOCATION IF NOT EXISTS datalake_medallion
+URL 'abfss://raw@adlsmedallionproyfinal.dfs.core.windows.net/'
+WITH (CREDENTIAL `credencial_raw`);
