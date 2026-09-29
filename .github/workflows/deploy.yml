@@ -30,6 +30,4 @@ jobs:
 
       - name: Deploy Notebooks to Databricks Workspace
         run: |
-          # Importamos la carpeta 'proceso' al workspace de Databricks
-          # Cambia '/Shared/Produccion_ETL' por la ruta donde quieres guardar los notebooks en Databricks
           databricks workspace import_dir ./proceso /Shared/Produccion_ETL --overwrite
