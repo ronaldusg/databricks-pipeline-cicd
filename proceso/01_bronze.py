@@ -13,3 +13,4 @@ df_sales.write.format("delta").mode("overwrite").saveAsTable("retail_catalog.bro
 df_stores.write.format("delta").mode("overwrite").saveAsTable("retail_catalog.bronze.stores")
 
 print("Carga a Bronze completada exitosamente.")
+#..
