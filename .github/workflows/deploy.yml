@@ -1,0 +1,35 @@
+name: Deploy Notebooks to Databricks
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'proceso/**'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Install Databricks CLI
+        run: pip install databricks-cli
+
+      - name: Configure Databricks CLI
+        run: |
+          echo "[DEFAULT]" > ~/.databrickscfg
+          echo "host = ${{ secrets.DATABRICKS_HOST }}" >> ~/.databrickscfg
+          echo "token = ${{ secrets.DATABRICKS_TOKEN }}" >> ~/.databrickscfg
+
+      - name: Deploy Notebooks to Databricks Workspace
+        run: |
+          # Importamos la carpeta 'proceso' al workspace de Databricks
+          # Cambia '/Shared/Produccion_ETL' por la ruta donde quieres guardar los notebooks en Databricks
+          databricks workspace import_dir ./proceso /Shared/Produccion_ETL --overwrite
